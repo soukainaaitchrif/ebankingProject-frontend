@@ -1,28 +1,99 @@
-<div class="container">
-  <div class="card col-md-6 offset-3 mt-2">
-    <div class="card-header">New Customer</div>
-    <div class="card-body">
-      <form [formGroup]="newCustomerFormGroup" (ngSubmit)="handleSaveCustomer()">
-        <div class="mb-3">
-          <label class="form-label">Name:</label>
-          <input type="text" formControlName="name" class="form-control">
-          <span class="text-danger"
-                *ngIf="newCustomerFormGroup.get('name')?.touched
-          && newCustomerFormGroup.get('name')?.errors?.['required']">
-            Name is Required
-          </span>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <!-- En-tête de la page -->
+      <div class="d-flex align-items-center mb-4">
+        <div class="icon-circle bg-primary bg-opacity-10 text-primary me-3">
+          <i class="bi bi-person-plus-fill"></i>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Email:</label>
-          <input type="text" formControlName="email" class="form-control">
-          <span class="text-danger"
-                *ngIf="newCustomerFormGroup.get('eamil')?.touched
-          && newCustomerFormGroup.get('email')?.errors?.['required']">
-            Email is not valid
-          </span>
+        <div>
+          <h2 class="text-primary fw-bold mb-0">Nouveau client</h2>
+          <p class="text-muted mb-0">Ajoutez un nouveau client à votre base de données</p>
         </div>
-        <button [disabled]="!newCustomerFormGroup.valid" class="btn btn-info">Save</button>
-      </form>
+      </div>
+
+      <!-- Carte principale -->
+      <div class="card border-0 shadow-sm rounded-3">
+        <div class="card-body p-4">
+          <!-- Formulaire -->
+          <form [formGroup]="newCustomerFormGroup" (ngSubmit)="handleSaveCustomer()">
+            <!-- Champ Nom -->
+            <div class="mb-4">
+              <label class="form-label fw-medium">Nom</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-0">
+                  <i class="bi bi-person text-primary"></i>
+                </span>
+                <input type="text" formControlName="name" class="form-control border-0 bg-light"
+                       placeholder="Entrez le nom du client">
+              </div>
+              <!-- Message d'erreur -->
+              <div class="form-text text-danger mt-2"
+                   *ngIf="newCustomerFormGroup.get('name')?.touched &&
+                   newCustomerFormGroup.get('name')?.errors?.['required']">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                Le nom est obligatoire
+              </div>
+              <div class="form-text text-danger mt-2"
+                   *ngIf="newCustomerFormGroup.get('name')?.touched &&
+                   newCustomerFormGroup.get('name')?.errors?.['minlength']">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                Le nom doit contenir au moins 4 caractères
+              </div>
+            </div>
+
+            <!-- Champ Email -->
+            <div class="mb-4">
+              <label class="form-label fw-medium">Email</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-0">
+                  <i class="bi bi-envelope text-primary"></i>
+                </span>
+                <input type="email" formControlName="email" class="form-control border-0 bg-light"
+                       placeholder="Entrez l'adresse email du client">
+              </div>
+              <!-- Message d'erreur -->
+              <div class="form-text text-danger mt-2"
+                   *ngIf="newCustomerFormGroup.get('email')?.touched &&
+                   newCustomerFormGroup.get('email')?.errors?.['required']">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                L'email est obligatoire
+              </div>
+              <div class="form-text text-danger mt-2"
+                   *ngIf="newCustomerFormGroup.get('email')?.touched &&
+                   newCustomerFormGroup.get('email')?.errors?.['email']">
+                <i class="bi bi-exclamation-circle me-1"></i>
+                L'adresse email n'est pas valide
+              </div>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="d-flex gap-3 mt-4">
+              <button type="button" class="btn btn-outline-secondary flex-grow-1" routerLink="/customers">
+                <i class="bi bi-arrow-left me-2"></i>Annuler
+              </button>
+              <button type="submit" class="btn btn-primary flex-grow-1" [disabled]="!newCustomerFormGroup.valid">
+                <i class="bi bi-check-circle me-2"></i>Enregistrer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Carte d'information -->
+      <div class="card border-0 shadow-sm rounded-3 bg-light mt-4">
+        <div class="card-body p-3">
+          <div class="d-flex">
+            <div class="icon-circle bg-info bg-opacity-10 text-info me-3">
+              <i class="bi bi-info-circle"></i>
+            </div>
+            <div>
+              <h5 class="text-info mb-1">Information</h5>
+              <p class="mb-0 small">Tous les champs marqués sont obligatoires. Après l'enregistrement, vous serez redirigé vers la liste des clients.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

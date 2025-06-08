@@ -51,12 +51,15 @@ export class CustomersComponent implements OnInit {
     if(!conf) return;
     this.customerService.deleteCustomer(c.id).subscribe({
       next : (resp) => {
-       this.handleSearchCustomers()
+        this.handleSearchCustomers()
       },
       error : err => {
         console.log(err);
       }
     })
+  }
+  handleCustomerAccounts(customer: Customer) {
+    this.router.navigateByUrl("/customersaccounts/"+customer.id,{state :customer});
   }
 
 }
